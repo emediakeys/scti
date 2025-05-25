@@ -512,58 +512,67 @@
         termsCheckbox.addEventListener("change", validateTerms);
 
         // Form submission
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
+       // ...existing code...
+// Replace your form.addEventListener("submit", ...) block with this:
 
-          // Validate all fields
-          const isFullNameValid = validateFullName();
-          const isEmailValid = validateEmail();
-          const isPhoneValid = validatePhone();
-          const isCourseValid = validateCourse();
-          const isPasswordValid = validatePassword();
-          const isConfirmPasswordValid = validateConfirmPassword();
-          const isTermsAccepted = validateTerms();
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
 
-          if (
-            isFullNameValid &&
-            isEmailValid &&
-            isPhoneValid &&
-            isCourseValid &&
-            isPasswordValid &&
-            isConfirmPasswordValid &&
-            isTermsAccepted
-          ) {
-            // Show loading state
-            submitButton.disabled = true;
-            formStatus.classList.remove("hidden");
-            loadingIndicator.classList.remove("hidden");
+  // Validate all fields
+  const isFullNameValid = validateFullName();
+  const isEmailValid = validateEmail();
+  const isPhoneValid = validatePhone();
+  const isCourseValid = validateCourse();
+  const isPasswordValid = validatePassword();
+  const isConfirmPasswordValid = validateConfirmPassword();
+  const isTermsAccepted = validateTerms();
 
-            // Simulate form submission to Google Sheets
-            setTimeout(function () {
-              loadingIndicator.classList.add("hidden");
+  if (
+    isFullNameValid &&
+    isEmailValid &&
+    isPhoneValid &&
+    isCourseValid &&
+    isPasswordValid &&
+    isConfirmPasswordValid &&
+    isTermsAccepted
+  ) {
+    // Show loading state
+    submitButton.disabled = true;
+    formStatus.classList.remove("hidden");
+    loadingIndicator.classList.remove("hidden");
+    successMessage.classList.add("hidden");
+    errorMessage.classList.add("hidden");
 
-              // Simulate success (in a real app, check the actual response)
-              const isSuccess = Math.random() > 0.2; // 80% success rate for demo
+    // Prepare form data
+    const formData = new FormData(form);
 
-              if (isSuccess) {
-                successMessage.classList.remove("hidden");
-                setTimeout(function () {
-                  form.reset();
-                  formStatus.classList.add("hidden");
-                  successMessage.classList.add("hidden");
-                  submitButton.disabled = false;
-                }, 2000);
-              } else {
+    // Google Apps Script Web App URL
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwFINU5aqcmJ5pnoedw7Q9PyegKKeCZEDhx1nPo2Mq4m3Zo8IPN1NRzZAZpcQMfQI75/exec";
+
+    fetch(scriptURL, { method: "POST", body: formData })
+      .then(response => {
+          loadingIndicator.classList.add("hidden");
+          successMessage.classList.remove("hidden");
+          form.reset();
+          setTimeout(function () {
+            formStatus.classList.add("hidden");
+            successMessage.classList.add("hidden");
+            submitButton.disabled = false;
+            window.location.href = "https://emediakeys.github.io/scti/"; // <-- Change this to your desired URL
+          }, 2000);
+        })
+              .catch(error => {
+                loadingIndicator.classList.add("hidden");
                 errorMessage.classList.remove("hidden");
                 setTimeout(function () {
                   formStatus.classList.add("hidden");
                   errorMessage.classList.add("hidden");
                   submitButton.disabled = false;
                 }, 2000);
-              }
-            }, 1500);
+              });
           }
         });
+        // ...existing code...
 
         // Validation functions
         function validateFullName() {
@@ -701,56 +710,7 @@
           errorElement.classList.add("hidden");
         }
       });
-    </script>
 
-    <script id="googleSheetsIntegration">
-      document.addEventListener("DOMContentLoaded", function () {
-        // This is a placeholder for Google Sheets API integration
-        // In a real application, you would:
-        // 1. Set up Google Sheets API
-        // 2. Create a server-side endpoint to handle the form submission
-        // 3. Send the form data to Google Sheets via the API
-
-        // Example of how to prepare data for Google Sheets:
-        function prepareDataForGoogleSheets(formData) {
-          return {
-            fullName: formData.get("fullName"),
-            email: formData.get("email"),
-            phone: formData.get("phone"),
-            course: formData.get("course"),
-            registrationDate: new Date().toISOString(),
-          };
-        }
-
-        // Example of how to send data to Google Sheets (via a server endpoint):
-        function sendToGoogleSheets(data) {
-          // In a real application, you would make an AJAX request to your server
-          // which would then use the Google Sheets API to append the data
-
-          /* Example:
-                      fetch('your-server-endpoint', {
-                          method: 'POST',
-                          headers: {
-                              'Content-Type': 'application/json',
-                          },
-                          body: JSON.stringify(data),
-                      })
-                      .then(response => response.json())
-                      .then(result => {
-                          console.log('Success:', result);
-                          return true;
-                      })
-                      .catch(error => {
-                          console.error('Error:', error);
-                          return false;
-                      });
-                      */
-
-          // For this demo, we'll just simulate a successful submission
-          console.log("Data that would be sent to Google Sheets:", data);
-          return true;
-        }
-      });
     </script>
   </body>
 </html>
