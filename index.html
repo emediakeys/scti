@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SCTI Home Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#3b82f6",
+              secondary: "#64748b",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      }
+      .card-slider {
+      scroll-behavior: smooth;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      }
+      .card-slider::-webkit-scrollbar {
+      display: none;
+      }
+      .hero-section {
+      background-image: url(/dev.JPG);
+      background-size: cover;
+      background-position: center right;
+      }
+      .hero-content {
+      background: linear-gradient(90deg, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0.8) 70%, rgba(255,255,255,0) 100%);
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+      }
+      .custom-checkbox {
+      position: relative;
+      cursor: pointer;
+      }
+      .custom-checkbox input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      }
+      .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background-color: #fff;
+      border: 2px solid #d1d5db;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      }
+      .custom-checkbox input:checked ~ .checkmark {
+      background-color: #3b82f6;
+      border-color: #3b82f6;
+      }
+      .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+      }
+      .custom-checkbox input:checked ~ .checkmark:after {
+      display: block;
+      }
+      .custom-checkbox .checkmark:after {
+      left: 6px;
+      top: 2px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      }
+      .topic-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .topic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      .slider-dot {
+      transition: all 0.3s ease;
+      }
+      .slider-dot.active {
+      width: 24px;
+      background-color: #3b82f6;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- Header -->
+    <header
+      class="fixed top-0 left-0 right-0 bg-white bg-opacity-95 shadow-sm z-50"
+    >
+      <div
+        class="container mx-auto px-6 py-4 flex items-center justify-between"
+      >
+        <a href="index.html" class="text-2xl font-['Pacifico'] text-primary"><img src="logo.png" style="width: 80px;"></a>
+        <nav class="hidden md:flex items-center space-x-8">
+          <a
+            href="#"
+            id="home-link"
+            class="font-medium hover:text-primary transition-colors"
+            >Home</a
+          >
+          <a
+            href="#courses"
+            data-readdy="true"
+            class="font-medium hover:text-primary transition-colors"
+            >Courses</a
+          >
+          <a href="#about" class="font-medium hover:text-primary transition-colors"
+            >About</a
+          >
+          <a href="enquiry.html" class="font-medium hover:text-primary transition-colors"
+            >Contact</a
+          >
+        </nav>
+        <div class="flex items-center space-x-4">
+          <a
+            href="#"
+            class="hidden md:block font-medium text-gray-600 hover:text-primary transition-colors" onclick="alert('Coming Soon!')"
+            >Sign In</a
+          >
+          <a
+            href="apply.html"
+            class="bg-primary text-white px-6 py-2 rounded-button font-medium shadow-sm hover:bg-blue-600 transition-colors whitespace-nowrap"
+            >Apply Now</a
+          >
+          <button
+            class="md:hidden w-10 h-10 flex items-center justify-center text-gray-700"
+            id="mobile-menu-button"
+          >
+            <i class="ri-menu-line ri-lg"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div class="md:hidden hidden bg-white" id="mobile-menu">
+        <div class="container mx-auto px-6 py-4 space-y-4">
+          <a
+            href="#"
+            class="block font-medium hover:text-primary transition-colors"
+            >Home</a
+          >
+          <a
+            href="#courses"
+            class="block font-medium hover:text-primary transition-colors"
+            >Courses</a
+          >
+          <a
+            href="#about"
+            class="block font-medium hover:text-primary transition-colors"
+            >About</a
+          >
+          <a
+            href="enquiry.html"
+            class="block font-medium hover:text-primary transition-colors"
+            >Contact</a
+          >
+          <a
+            href="#"
+            class="block font-medium hover:text-primary transition-colors" onclick="alert('Coming soon!')"
+            >Sign In</a
+          >
+        </div>
+      </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero-section pt-28 pb-16 md:pt-32 md:pb-24">
+      <div class="container mx-auto px-6 w-full">
+        <div class="hero-content max-w-2xl py-16 px-8 md:px-12">
+          <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
+            Master Computer Knowledge for the Digital Age
+          </h1>
+          <p class="text-lg md:text-xl text-gray-700 mb-8">
+            Expand your tech skills with expert-led courses at SHARP COMPUTER TRAINING INSTITUTION.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a
+              href="#apply"
+              class="bg-primary text-white px-8 py-3 rounded-button font-medium text-center shadow-md hover:bg-blue-600 transition-colors whitespace-nowrap"
+              >Apply Now</a
+            >
+            <a
+              href="#courses"
+              class="bg-white text-primary border-2 border-primary px-8 py-3 rounded-button font-medium text-center hover:bg-gray-50 transition-colors whitespace-nowrap"
+              >Explore Courses</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Stats Section -->
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center">
+            <div class="text-4xl font-bold text-primary mb-2">100+</div>
+            <p class="text-gray-600">Students Enrolled</p>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl font-bold text-primary mb-2">10+</div>
+            <p class="text-gray-600">Biginner Courses</p>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl font-bold text-primary mb-2">98%</div>
+            <p class="text-gray-600">Student Satisfaction</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Sliding Cards Section -->
+    <section id="courses" class="py-16 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Our Courses</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Discover our most sought-after courses designed to help you master
+            essential computer skills and advance your career.
+          </p>
+        </div>
+        <div class="relative">
+          <button
+            id="prev-btn"
+            class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full shadow-md w-12 h-12 flex items-center justify-center text-gray-700 hover:bg-gray-100 focus:outline-none -ml-6 hidden md:flex"
+          >
+            <i class="ri-arrow-left-s-line ri-lg"></i>
+          </button>
+          <div class="overflow-x-auto card-slider" id="card-slider">
+            <div class="flex gap-6 py-4 px-2 min-w-max">
+              <!-- Card 1 -->
+              <div
+                class="bg-white rounded-lg shadow-md overflow-hidden w-72 flex-shrink-0"
+              >
+                <div class="h-48 overflow-hidden">
+                  <img
+                    src="slide (1).jpeg"
+                    alt="Web Development"
+                    class="w-full h-full object-cover object-top"
+                  />
+                </div>
+                <div class="p-6">
+                  <h3 class="font-bold text-xl mb-2">Microsoft Office</h3>
+                  <p class="text-gray-600 mb-4">
+                    Learn MS Word, MS Excel, Ms PowerPoint and and Publisher for office works.
+                  </p>
+                  <a href="https://wa.me/2348151234227" class="text-primary font-medium hover:underline"
+                    >Learn More</a
+                  >
+                </div>
+              </div>
+              <!-- Card 2 -->
+              <div
+                class="bg-white rounded-lg shadow-md overflow-hidden w-72 flex-shrink-0"
+              >
+                <div class="h-48 overflow-hidden">
+                  <img
+                    src="slide (4).jpeg"
+                    alt="Data Science"
+                    class="w-full h-full object-cover object-top"
+                  />
+                </div>
+                <div class="p-6">
+                  <h3 class="font-bold text-xl mb-2">Graphic Design</h3>
+                  <p class="text-gray-600 mb-4">
+                    Master Graphic Design, Logo Design and branding
+                    techniques using Design tools like, CorelDraw, Photoshop etc.
+                  </p>
+                  <a href="https://wa.me/2348151234227" class="text-primary font-medium hover:underline"
+                    >Learn More</a
+                  >
+                </div>
+              </div>
+              <!-- Card 3 -->
+              <div
+                class="bg-white rounded-lg shadow-md overflow-hidden w-72 flex-shrink-0"
+              >
+                <div class="h-48 overflow-hidden">
+                  <img
+                    src="slide (2).jpeg"
+                    alt="Cybersecurity"
+                    class="w-full h-full object-cover object-top"
+                  />
+                </div>
+                <div class="p-6">
+                  <h3 class="font-bold text-xl mb-2">Internet</h3>
+                  <p class="text-gray-600 mb-4">
+                    Learn how the internet works and how to use the systems to do reseach for projects, assignments etc.
+                  </p>
+                  <a href="https://wa.me/2348151234227" class="text-primary font-medium hover:underline"
+                    >Learn More</a
+                  >
+                </div>
+              </div>
+              <!-- Card 4 -->
+              <div
+                class="bg-white rounded-lg shadow-md overflow-hidden w-72 flex-shrink-0"
+              >
+                <div class="h-48 overflow-hidden">
+                  <img
+                    src="slide (6).jpeg"
+                    alt="Artificial Intelligence"
+                    class="w-full h-full object-cover object-top"
+                  />
+                </div>
+                <div class="p-6">
+                  <h3 class="font-bold text-xl mb-2">
+                    Adult Classes
+                  </h3>
+                  <p class="text-gray-600 mb-4">
+                    We provide convenient and flexible adult classes, for those that a busy with work.
+                  </p>
+                  <a href="https://wa.me/2348151234227" class="text-primary font-medium hover:underline"
+                    >Learn More</a
+                  >
+                </div>
+              </div>
+              <!-- Card 5 -->
+              <div
+                class="bg-white rounded-lg shadow-md overflow-hidden w-72 flex-shrink-0"
+              >
+                <div class="h-48 overflow-hidden">
+                  <img
+                    src="slide (2).jpg"
+                    alt="Web Development"
+                    class="w-full h-full object-cover object-top"
+                  />
+                </div>
+                <div class="p-6">
+                  <h3 class="font-bold text-xl mb-2">Industrial Training (IT)</h3>
+                  <p class="text-gray-600 mb-4">
+                    We offer Industrial Traiing for Students who are willing to learn, Free, and you will not be paid also!.
+                  </p>
+                  <a href="https://wa.me/2348151234227" class="text-primary font-medium hover:underline"
+                    >Learn More</a
+                  >
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <button
+            id="next-btn"
+            class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full shadow-md w-12 h-12 flex items-center justify-center text-gray-700 hover:bg-gray-100 focus:outline-none -mr-6 hidden md:flex"
+          >
+            <i class="ri-arrow-right-s-line ri-lg"></i>
+          </button>
+        </div>
+        <div class="flex justify-center mt-8 gap-2" id="slider-dots">
+          <button class="slider-dot h-2 w-6 bg-primary rounded-full"></button>
+          <button class="slider-dot h-2 w-2 bg-gray-300 rounded-full"></button>
+          <button class="slider-dot h-2 w-2 bg-gray-300 rounded-full"></button>
+        </div>
+      </div>
+    </section>
+    <!-- Featured Topics Grid -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Explore Computer Topics</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Dive into comprehensive library of computer knowledge across
+            various domains and specializations.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Topic 1 -->
+          <div
+            class="topic-card bg-white rounded-lg p-6 border border-gray-100 shadow-sm"
+          >
+            <div
+              class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+            >
+              <i class="ri-code-s-slash-line ri-lg text-primary"></i>
+            </div>
+            <h3 class="font-bold text-xl mb-2">Programming Languages</h3>
+            <p class="text-gray-600">
+              Master Python, JavaScript, Java, C++, and other popular
+              programming languages with hands-on exercises.
+            </p>
+          </div>
+          <!-- Topic 2 -->
+          <div
+            class="topic-card bg-white rounded-lg p-6 border border-gray-100 shadow-sm"
+          >
+            <div
+              class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+            >
+              <i class="ri-database-2-line ri-lg text-primary"></i>
+            </div>
+            <h3 class="font-bold text-xl mb-2">Database Management</h3>
+            <p class="text-gray-600">
+              Learn SQL, NoSQL, and database design principles to efficiently
+              store and retrieve data for applications.
+            </p>
+          </div>
+          <!-- Topic 3 -->
+          <div
+            class="topic-card bg-white rounded-lg p-6 border border-gray-100 shadow-sm"
+          >
+            <div
+              class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+            >
+              <i class="ri-layout-line ri-lg text-primary"></i>
+            </div>
+            <h3 class="font-bold text-xl mb-2">UI/UX Design</h3>
+            <p class="text-gray-600">
+              Create intuitive user interfaces and experiences with modern
+              design tools and principles.
+            </p>
+          </div>
+          <!-- Topic 4 -->
+          <div
+            class="topic-card bg-white rounded-lg p-6 border border-gray-100 shadow-sm"
+          >
+            <div
+              class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+            >
+              <i class="ri-server-line ri-lg text-primary"></i>
+            </div>
+            <h3 class="font-bold text-xl mb-2">DevOps & Infrastructure</h3>
+            <p class="text-gray-600">
+              Master continuous integration, deployment, and infrastructure
+              management using Docker and Kubernetes.
+            </p>
+          </div>
+          <!-- Topic 5 -->
+          <div
+            class="topic-card bg-white rounded-lg p-6 border border-gray-100 shadow-sm"
+          >
+            <div
+              class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+            >
+              <i class="ri-smartphone-line ri-lg text-primary"></i>
+            </div>
+            <h3 class="font-bold text-xl mb-2">Mobile Development</h3>
+            <p class="text-gray-600">
+              Build native and cross-platform mobile applications for iOS and
+              Android using React Native and Flutter.
+            </p>
+          </div>
+          <!-- Topic 6 -->
+          <div
+            class="topic-card bg-white rounded-lg p-6 border border-gray-100 shadow-sm"
+          >
+            <div
+              class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4"
+            >
+              <i class="ri-gamepad-line ri-lg text-primary"></i>
+            </div>
+            <h3 class="font-bold text-xl mb-2">Game Development</h3>
+            <p class="text-gray-600">
+              Create engaging games with Unity and Unreal Engine while learning
+              core game design principles.
+            </p>
+          </div>
+        </div>
+      </div>
+    
+    </section>
+    <!-- Apply Section -->
+    
+    <!-- Testimonials Section --> 
+     
+          <!-- Testimonial 2 -->
+          
+          <!-- Testimonial 3 <div class="bg-gray-50 rounded-lg p-6 border border-gray-100">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-12 h-12 bg-gray-300 rounded-full overflow-hidden mr-4"
+              >
+                <img
+                  src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20young%20man%20with%20beard%2C%20neutral%20background%2C%20professional%20portrait%2C%20high%20quality&width=100&height=100&seq=9&orientation=squarish"
+                  alt="David Williams"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <h4 class="font-bold">David Williams</h4>
+                <p class="text-sm text-gray-500">Cybersecurity Analyst</p>
+              </div>
+            </div>
+            <p class="text-gray-600">
+              "The cybersecurity program exceeded my expectations. The practical
+              labs and real-world scenarios prepared me for the challenges I now
+              face daily in my role protecting critical infrastructure."
+            </p>
+            <div class="mt-4 flex text-yellow-400">
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+              <i class="ri-star-fill"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+    
+    <!-- Comment Section -->
+    
+    <!-- Footer -->
+    <section>
+    <footer class="bg-gray-800 text-gray-300 pt-16 pb-8">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <div>
+            <h3 class="text-xl font-bold text-white mb-4" id="about">Sharp Computer</h3>
+            <p class="mb-4">
+              Empowering tech enthusiasts with comprehensive computer knowledge
+              and practical skills since 2013.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="https://www.facebook.com/essaiytech"
+                class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors"
+              >
+                <i class="ri-facebook-fill text-white"></i>
+              </a>
+              <a
+                href="https://www.tiktok.com/@hanifessaiy"
+                class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors"
+              >
+                <i class="ri-tiktok-fill text-white"></i>
+              </a>
+              <a
+                href="https://wa.me/2347040686186"
+                class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors"
+              >
+                <i class="ri-whatsapp-fill text-white"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/frontendit"
+                class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-700 hover:bg-primary transition-colors"
+              >
+                <i class="ri-instagram-fill text-white"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="hover:text-primary transition-colors"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a href="#courses" class="hover:text-primary transition-colors"
+                  >Courses</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-primary transition-colors"
+                  onclick="alert('Please make enquiry by clicking the whatsApp icon')">Instructors</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-primary transition-colors"
+                  >Blog</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-primary transition-colors"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-4">Courses</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="hover:text-primary transition-colors"
+                  >Microsoft Office</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-primary transition-colors"
+                  >Graphic Design</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-primary transition-colors"
+                  >Internet</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-primary transition-colors"
+                  >Industrial Training (IT)</a
+                >
+              </li>
+              <li>
+                <a href="courses.html" class="hover:text-primary transition-colors"
+                  >View All Courses</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-4">Contact Us</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="ri-map-pin-line mt-1 mr-3"></i>
+                <span>Shop A4, Groud Floor, Garkuwa Plaza, Shuaibu Dagaci Street, Bakin Iku, Suleja, Niger State.</span>
+              </li>
+              <li class="flex items-center">
+                <i class="ri-phone-line mr-3"></i>
+                <span>08151234227</span>
+              </li>
+              <li class="flex items-center">
+                <i class="ri-mail-line mr-3"></i>
+                <span>hanifshuaib17@gmail.com</span>
+              </li>
+              <li class="flex items-center">
+                <i class="ri-time-line mr-3"></i>
+                <span>Mon-Sat: 9AM-9PM</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="pt-8 border-t border-gray-700 text-sm">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p>&copy; 2025 Sharp Computer. All rights reserved.</p>
+            <div class="flex mt-4 md:mt-0 space-x-6">
+              <a href="#" class="hover:text-primary transition-colors"
+                >Privacy Policy</a
+              >
+              <a href="#" class="hover:text-primary transition-colors"
+                >Terms of Service</a
+              >
+              <a href="#" class="hover:text-primary transition-colors"
+                >Cookie Policy</a
+              >
+            </div>
+          </div>
+          <div class="mt-6 flex justify-center space-x-4">
+            <i class="ri-visa-fill text-2xl text-gray-400"></i>
+            <i class="ri-mastercard-fill text-2xl text-gray-400"></i>
+            <i class="ri-paypal-fill text-2xl text-gray-400"></i>
+            <i class="ri-apple-fill text-2xl text-gray-400"></i>
+            <i class="ri-google-fill text-2xl text-gray-400"></i>
+          </div>
+        </div>
+      </div>
+    </footer>
+    </section>
+    <!-- Scripts -->
+    <script id="mobile-menu-script">
+        //document.addEventListener('DOMContentLoaded', function() { const header =
+        //document.querySelector('header'); const homeLink =
+        //document.getElementById('home-link'); homeLink.addEventListener('click',
+        //function(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior:
+        //'smooth' }); }); ======= const headerHeight = header.offsetHeight; function
+        //updateHeader() { if (window.scrollY > 50) {
+        //header.classList.add('shadow-md'); header.classList.remove('shadow-sm'); }
+        //else { header.classList.remove('shadow-md');
+        //header.classList.add('shadow-sm'); } } window.addEventListener('scroll',
+        //updateHeader); updateHeader(); });
+    
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+        mobileMenuButton.addEventListener("click", function () {
+          mobileMenu.classList.toggle("hidden");
+          if (mobileMenu.classList.contains("hidden")) {
+            mobileMenuButton.innerHTML = '<i class="ri-menu-line ri-lg"></i>';
+          } else {
+            mobileMenuButton.innerHTML = '<i class="ri-close-line ri-lg"></i>';
+          }
+        });
+      });
+    </script>
+
+
+    <script id="slider-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const slider = document.getElementById("card-slider");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+        const dots = document
+          .getElementById("slider-dots")
+          .querySelectorAll(".slider-dot");
+        const cardWidth = 288; // 272px card width + 16px gap
+        let currentIndex = 0;
+        function updateSlider() {
+          slider.scrollLeft = currentIndex * cardWidth;
+          // Update dots
+          dots.forEach((dot, index) => {
+            if (index === currentIndex) {
+              dot.classList.add("active");
+              dot.classList.add("w-6");
+              dot.classList.remove("w-2");
+              dot.classList.add("bg-primary");
+              dot.classList.remove("bg-gray-300");
+            } else {
+              dot.classList.remove("active");
+              dot.classList.remove("w-6");
+              dot.classList.add("w-2");
+              dot.classList.remove("bg-primary");
+              dot.classList.add("bg-gray-300");
+            }
+          });
+        }
+        prevBtn.addEventListener("click", function () {
+          if (currentIndex > 0) {
+            currentIndex--;
+            updateSlider();
+          }
+        });
+        nextBtn.addEventListener("click", function () {
+          if (currentIndex < 2) {
+            // We have 5 cards, showing 3 at a time, so 2 possible positions
+            currentIndex++;
+            updateSlider();
+          }
+        });
+        dots.forEach((dot, index) => {
+          dot.addEventListener("click", function () {
+            currentIndex = index;
+            updateSlider();
+          });
+        });
+        // Touch events for mobile
+        let startX, endX;
+        slider.addEventListener("touchstart", function (e) {
+          startX = e.touches[0].clientX;
+        });
+        slider.addEventListener("touchend", function (e) {
+          endX = e.changedTouches[0].clientX;
+          if (startX - endX > 50 && currentIndex < 2) {
+            // Swipe left
+            currentIndex++;
+            updateSlider();
+          } else if (endX - startX > 50 && currentIndex > 0) {
+            // Swipe right
+            currentIndex--;
+            updateSlider();
+          }
+        });
+      });
+    </script>
+    
+
+    <script id="form-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const checkboxes = document.querySelectorAll(
+          '.custom-checkbox input[type="checkbox"]',
+        );
+        checkboxes.forEach((checkbox) => {
+          checkbox.addEventListener("change", function () {
+            const checkmark = this.nextElementSibling;
+            if (this.checked) {
+              checkmark.classList.add("bg-primary");
+              checkmark.classList.add("border-primary");
+            } else {
+              checkmark.classList.remove("bg-primary");
+              checkmark.classList.remove("border-primary");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

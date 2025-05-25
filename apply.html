@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Form</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#4f46e5", secondary: "#6366f1" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+          font-family: 'Inter', sans-serif;
+          background-color: #f9fafb;
+      }
+      input:focus, select:focus {
+          outline: none;
+          border-color: #4f46e5;
+          box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+      }
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus {
+          -webkit-box-shadow: 0 0 0px 1000px white inset;
+          transition: background-color 5000s ease-in-out 0s;
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+      }
+      input[type="number"] {
+          -moz-appearance: textfield;
+      }
+      .custom-checkbox {
+          position: relative;
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          margin-right: 8px;
+          border: 2px solid #d1d5db;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+      }
+      .custom-checkbox-input {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+          height: 0;
+          width: 0;
+      }
+      .custom-checkbox-input:checked ~ .checkmark {
+          background-color: #4f46e5;
+          border-color: #4f46e5;
+      }
+      .checkmark {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 20px;
+          width: 20px;
+          background-color: white;
+          border: 2px solid #d1d5db;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+      }
+      .custom-checkbox-input:checked ~ .checkmark:after {
+          content: "";
+          position: absolute;
+          display: block;
+          left: 6px;
+          top: 2px;
+          width: 5px;
+          height: 10px;
+          border: solid white;
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex items-center justify-center p-4 md:p-6">
+    <div class="w-full max-w-md bg-white shadow-lg rounded-lg overflow-hidden">
+      <div class="bg-gradient-to-r from-primary to-secondary p-6 text-white">
+        <h1 class="text-2xl font-bold text-center">Registration Form</h1>
+        <p class="text-center mt-2 text-white/80">
+          Join our community by filling out the form below
+        </p>
+      </div>
+
+      <form id="registrationForm" class="p-6 space-y-6">
+        <div class="space-y-1">
+          <label for="fullName" class="block text-sm font-medium text-gray-700"
+            >Full Name <span class="text-red-500">*</span></label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+            >
+              <div
+                class="w-5 h-5 flex items-center justify-center text-gray-400"
+              >
+                <i class="ri-user-line"></i>
+              </div>
+            </div>
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              required
+              class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-button text-gray-900 placeholder-gray-400"
+              placeholder="Enter your full name"
+            />
+          </div>
+          <p id="fullNameError" class="text-red-500 text-xs mt-1 hidden">
+            Please enter your full name
+          </p>
+        </div>
+
+        <div class="space-y-1">
+          <label for="email" class="block text-sm font-medium text-gray-700"
+            >Email Address <span class="text-red-500">*</span></label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+            >
+              <div
+                class="w-5 h-5 flex items-center justify-center text-gray-400"
+              >
+                <i class="ri-mail-line"></i>
+              </div>
+            </div>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-button text-gray-900 placeholder-gray-400"
+              placeholder="Enter your email address"
+            />
+          </div>
+          <p id="emailError" class="text-red-500 text-xs mt-1 hidden">
+            Please enter a valid email address
+          </p>
+        </div>
+
+        <div class="space-y-1">
+          <label for="phone" class="block text-sm font-medium text-gray-700"
+            >Phone Number <span class="text-red-500">*</span></label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+            >
+              <div
+                class="w-5 h-5 flex items-center justify-center text-gray-400"
+              >
+                <i class="ri-phone-line"></i>
+              </div>
+            </div>
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              required
+              class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-button text-gray-900 placeholder-gray-400"
+              placeholder="Enter your phone number"
+            />
+          </div>
+          <p id="phoneError" class="text-red-500 text-xs mt-1 hidden">
+            Please enter a valid phone number (10-15 digits)
+          </p>
+        </div>
+
+        <div class="space-y-1">
+          <label for="course" class="block text-sm font-medium text-gray-700"
+            >Course of Choice <span class="text-red-500">*</span></label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+            >
+              <div
+                class="w-5 h-5 flex items-center justify-center text-gray-400"
+              >
+                <i class="ri-book-open-line"></i>
+              </div>
+            </div>
+            <div class="relative">
+              <select
+                id="course"
+                name="course"
+                required
+                class="appearance-none w-full pl-10 pr-10 py-2 border border-gray-300 rounded-button text-gray-900 bg-white"
+              >
+                <option value="" disabled selected>Select a course</option>
+                <option value="Microsoft Office">Microsoft Office</option>
+                <option value="Graphic Design">Graphic Design</option>
+                <option value="Internet">Internet</option>
+              </select>
+              <div
+                class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
+              >
+                <div
+                  class="w-5 h-5 flex items-center justify-center text-gray-400"
+                >
+                  <i class="ri-arrow-down-s-line"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p id="courseError" class="text-red-500 text-xs mt-1 hidden">
+            Please select a course
+          </p>
+        </div>
+
+        <div class="space-y-1">
+          <label for="password" class="block text-sm font-medium text-gray-700"
+            >Password <span class="text-red-500">*</span></label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+            >
+              <div
+                class="w-5 h-5 flex items-center justify-center text-gray-400"
+              >
+                <i class="ri-lock-line"></i>
+              </div>
+            </div>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              class="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-button text-gray-900 placeholder-gray-400"
+              placeholder="Create a password"
+            />
+            <button
+              type="button"
+              id="togglePassword"
+              class="absolute inset-y-0 right-0 flex items-center pr-3"
+            >
+              <div
+                class="w-5 h-5 flex items-center justify-center text-gray-400"
+              >
+                <i class="ri-eye-off-line"></i>
+              </div>
+            </button>
+          </div>
+          <p id="passwordError" class="text-red-500 text-xs mt-1 hidden">
+            Password must be at least 8 characters
+          </p>
+          <div id="passwordStrength" class="mt-2 hidden">
+            <div class="flex space-x-1">
+              <div
+                class="h-1 w-1/4 rounded-full bg-gray-200"
+                id="strength1"
+              ></div>
+              <div
+                class="h-1 w-1/4 rounded-full bg-gray-200"
+                id="strength2"
+              ></div>
+              <div
+                class="h-1 w-1/4 rounded-full bg-gray-200"
+                id="strength3"
+              ></div>
+              <div
+                class="h-1 w-1/4 rounded-full bg-gray-200"
+                id="strength4"
+              ></div>
+            </div>
+            <p class="text-xs text-gray-500 mt-1" id="strengthText">
+              Password strength
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <label
+            for="confirmPassword"
+            class="block text-sm font-medium text-gray-700"
+            >Confirm Password <span class="text-red-500">*</span></label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+            >
+              <div
+                class="w-5 h-5 flex items-center justify-center text-gray-400"
+              >
+                <i class="ri-lock-line"></i>
+              </div>
+            </div>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              required
+              class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-button text-gray-900 placeholder-gray-400"
+              placeholder="Confirm your password"
+            />
+          </div>
+          <p id="confirmPasswordError" class="text-red-500 text-xs mt-1 hidden">
+            Passwords do not match
+          </p>
+        </div>
+
+        <div class="flex items-start">
+          <label class="custom-checkbox">
+            <input
+              type="checkbox"
+              id="terms"
+              name="terms"
+              required
+              class="custom-checkbox-input"
+            />
+            <span class="checkmark"></span>
+          </label>
+          <div class="text-sm">
+            <span class="text-gray-700">I agree to the </span>
+            <a href="#" class="text-primary hover:text-primary/80 font-medium"
+              >Terms and Conditions</a
+            >
+            <span class="text-gray-700"> and </span>
+            <a href="#" class="text-primary hover:text-primary/80 font-medium"
+              >Privacy Policy</a
+            >
+          </div>
+        </div>
+        <p id="termsError" class="text-red-500 text-xs mt-1 hidden">
+          You must accept the terms and conditions
+        </p>
+
+        <button
+          type="submit"
+          id="submitButton"
+          class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2.5 px-4 rounded-button transition duration-200 !rounded-button whitespace-nowrap flex justify-center items-center"
+        >
+          <span>Register Now</span>
+        </button>
+
+        <div id="formStatus" class="text-center hidden">
+          <div id="loadingIndicator" class="hidden">
+            <div
+              class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary mx-auto"
+            ></div>
+            <p class="text-sm text-gray-600 mt-2">
+              Processing your registration...
+            </p>
+          </div>
+          <div id="successMessage" class="hidden">
+            <div
+              class="w-6 h-6 mx-auto flex items-center justify-center text-green-500"
+            >
+              <i class="ri-check-line ri-lg"></i>
+            </div>
+            <p class="text-sm text-green-600 mt-2">
+              Registration successful! Redirecting...
+            </p>
+          </div>
+          <div id="errorMessage" class="hidden">
+            <div
+              class="w-6 h-6 mx-auto flex items-center justify-center text-red-500"
+            >
+              <i class="ri-close-line ri-lg"></i>
+            </div>
+            <p class="text-sm text-red-600 mt-2">
+              Registration failed. Please try again.
+            </p>
+          </div>
+        </div>
+
+        <p class="text-center text-sm text-gray-500 mt-4">
+          Already have an account?
+          <a href="#" class="text-primary hover:text-primary/80 font-medium"
+            >Sign in</a
+          >
+        </p>
+      </form>
+    </div>
+
+    <script id="formValidation">
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("registrationForm");
+        const fullNameInput = document.getElementById("fullName");
+        const emailInput = document.getElementById("email");
+        const phoneInput = document.getElementById("phone");
+        const courseInput = document.getElementById("course");
+        const passwordInput = document.getElementById("password");
+        const confirmPasswordInput = document.getElementById("confirmPassword");
+        const termsCheckbox = document.getElementById("terms");
+        const togglePasswordBtn = document.getElementById("togglePassword");
+        const submitButton = document.getElementById("submitButton");
+        const loadingIndicator = document.getElementById("loadingIndicator");
+        const successMessage = document.getElementById("successMessage");
+        const errorMessage = document.getElementById("errorMessage");
+        const formStatus = document.getElementById("formStatus");
+
+        // Password visibility toggle
+        togglePasswordBtn.addEventListener("click", function () {
+          const type =
+            passwordInput.getAttribute("type") === "password" ? "text" : "password";
+          passwordInput.setAttribute("type", type);
+
+          // Toggle icon
+          const icon = togglePasswordBtn.querySelector("i");
+          if (type === "password") {
+            icon.className = "ri-eye-off-line";
+          } else {
+            icon.className = "ri-eye-line";
+          }
+        });
+
+        // Password strength indicator
+        const passwordStrength = document.getElementById("passwordStrength");
+        const strengthBars = [
+          document.getElementById("strength1"),
+          document.getElementById("strength2"),
+          document.getElementById("strength3"),
+          document.getElementById("strength4"),
+        ];
+        const strengthText = document.getElementById("strengthText");
+
+        passwordInput.addEventListener("input", function () {
+          const password = passwordInput.value;
+
+          if (password.length > 0) {
+            passwordStrength.classList.remove("hidden");
+
+            // Calculate password strength
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+            if (password.match(/\d/)) strength++;
+            if (password.match(/[^a-zA-Z\d]/)) strength++;
+
+            // Update strength bars
+            for (let i = 0; i < 4; i++) {
+              if (i < strength) {
+                strengthBars[i].classList.remove("bg-gray-200");
+                if (strength === 1) strengthBars[i].classList.add("bg-red-500");
+                else if (strength === 2)
+                  strengthBars[i].classList.add("bg-orange-500");
+                else if (strength === 3)
+                  strengthBars[i].classList.add("bg-yellow-500");
+                else strengthBars[i].classList.add("bg-green-500");
+              } else {
+                strengthBars[i].className = "h-1 w-1/4 rounded-full bg-gray-200";
+              }
+            }
+
+            // Update strength text
+            if (strength === 0) strengthText.textContent = "Very weak";
+            else if (strength === 1) strengthText.textContent = "Weak";
+            else if (strength === 2) strengthText.textContent = "Fair";
+            else if (strength === 3) strengthText.textContent = "Good";
+            else strengthText.textContent = "Strong";
+
+            // Update text color
+            strengthText.className = "text-xs mt-1";
+            if (strength === 1) strengthText.classList.add("text-red-500");
+            else if (strength === 2) strengthText.classList.add("text-orange-500");
+            else if (strength === 3) strengthText.classList.add("text-yellow-600");
+            else if (strength === 4) strengthText.classList.add("text-green-500");
+            else strengthText.classList.add("text-gray-500");
+          } else {
+            passwordStrength.classList.add("hidden");
+          }
+        });
+
+        // Real-time validation
+        fullNameInput.addEventListener("blur", validateFullName);
+        emailInput.addEventListener("blur", validateEmail);
+        phoneInput.addEventListener("blur", validatePhone);
+        courseInput.addEventListener("change", validateCourse);
+        passwordInput.addEventListener("blur", validatePassword);
+        confirmPasswordInput.addEventListener("blur", validateConfirmPassword);
+        termsCheckbox.addEventListener("change", validateTerms);
+
+        // Form submission
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Validate all fields
+          const isFullNameValid = validateFullName();
+          const isEmailValid = validateEmail();
+          const isPhoneValid = validatePhone();
+          const isCourseValid = validateCourse();
+          const isPasswordValid = validatePassword();
+          const isConfirmPasswordValid = validateConfirmPassword();
+          const isTermsAccepted = validateTerms();
+
+          if (
+            isFullNameValid &&
+            isEmailValid &&
+            isPhoneValid &&
+            isCourseValid &&
+            isPasswordValid &&
+            isConfirmPasswordValid &&
+            isTermsAccepted
+          ) {
+            // Show loading state
+            submitButton.disabled = true;
+            formStatus.classList.remove("hidden");
+            loadingIndicator.classList.remove("hidden");
+
+            // Simulate form submission to Google Sheets
+            setTimeout(function () {
+              loadingIndicator.classList.add("hidden");
+
+              // Simulate success (in a real app, check the actual response)
+              const isSuccess = Math.random() > 0.2; // 80% success rate for demo
+
+              if (isSuccess) {
+                successMessage.classList.remove("hidden");
+                setTimeout(function () {
+                  form.reset();
+                  formStatus.classList.add("hidden");
+                  successMessage.classList.add("hidden");
+                  submitButton.disabled = false;
+                }, 2000);
+              } else {
+                errorMessage.classList.remove("hidden");
+                setTimeout(function () {
+                  formStatus.classList.add("hidden");
+                  errorMessage.classList.add("hidden");
+                  submitButton.disabled = false;
+                }, 2000);
+              }
+            }, 1500);
+          }
+        });
+
+        // Validation functions
+        function validateFullName() {
+          const fullName = fullNameInput.value.trim();
+          const errorElement = document.getElementById("fullNameError");
+
+          if (fullName === "") {
+            showError(fullNameInput, errorElement, "Please enter your full name");
+            return false;
+          } else if (fullName.length < 3) {
+            showError(
+              fullNameInput,
+              errorElement,
+              "Name must be at least 3 characters",
+            );
+            return false;
+          } else {
+            hideError(fullNameInput, errorElement);
+            return true;
+          }
+        }
+
+        function validateEmail() {
+          const email = emailInput.value.trim();
+          const errorElement = document.getElementById("emailError");
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (email === "") {
+            showError(emailInput, errorElement, "Please enter your email address");
+            return false;
+          } else if (!emailRegex.test(email)) {
+            showError(emailInput, errorElement, "Please enter a valid email address");
+            return false;
+          } else {
+            hideError(emailInput, errorElement);
+            return true;
+          }
+        }
+
+        function validatePhone() {
+          const phone = phoneInput.value.trim().replace(/\D/g, "");
+          const errorElement = document.getElementById("phoneError");
+
+          if (phone === "") {
+            showError(phoneInput, errorElement, "Please enter your phone number");
+            return false;
+          } else if (phone.length < 10 || phone.length > 15) {
+            showError(
+              phoneInput,
+              errorElement,
+              "Phone number must be between 10-15 digits",
+            );
+            return false;
+          } else {
+            hideError(phoneInput, errorElement);
+            return true;
+          }
+        }
+
+        function validateCourse() {
+          const course = courseInput.value;
+          const errorElement = document.getElementById("courseError");
+
+          if (course === "" || course === null) {
+            showError(courseInput, errorElement, "Please select a course");
+            return false;
+          } else {
+            hideError(courseInput, errorElement);
+            return true;
+          }
+        }
+
+        function validatePassword() {
+          const password = passwordInput.value;
+          const errorElement = document.getElementById("passwordError");
+
+          if (password === "") {
+            showError(passwordInput, errorElement, "Please enter a password");
+            return false;
+          } else if (password.length < 8) {
+            showError(
+              passwordInput,
+              errorElement,
+              "Password must be at least 8 characters",
+            );
+            return false;
+          } else {
+            hideError(passwordInput, errorElement);
+            return true;
+          }
+        }
+
+        function validateConfirmPassword() {
+          const password = passwordInput.value;
+          const confirmPassword = confirmPasswordInput.value;
+          const errorElement = document.getElementById("confirmPasswordError");
+
+          if (confirmPassword === "") {
+            showError(
+              confirmPasswordInput,
+              errorElement,
+              "Please confirm your password",
+            );
+            return false;
+          } else if (password !== confirmPassword) {
+            showError(confirmPasswordInput, errorElement, "Passwords do not match");
+            return false;
+          } else {
+            hideError(confirmPasswordInput, errorElement);
+            return true;
+          }
+        }
+
+        function validateTerms() {
+          const isChecked = termsCheckbox.checked;
+          const errorElement = document.getElementById("termsError");
+
+          if (!isChecked) {
+            errorElement.classList.remove("hidden");
+            return false;
+          } else {
+            errorElement.classList.add("hidden");
+            return true;
+          }
+        }
+
+        function showError(inputElement, errorElement, message) {
+          inputElement.classList.add("border-red-500");
+          errorElement.textContent = message;
+          errorElement.classList.remove("hidden");
+        }
+
+        function hideError(inputElement, errorElement) {
+          inputElement.classList.remove("border-red-500");
+          errorElement.classList.add("hidden");
+        }
+      });
+    </script>
+
+    <script id="googleSheetsIntegration">
+      document.addEventListener("DOMContentLoaded", function () {
+        // This is a placeholder for Google Sheets API integration
+        // In a real application, you would:
+        // 1. Set up Google Sheets API
+        // 2. Create a server-side endpoint to handle the form submission
+        // 3. Send the form data to Google Sheets via the API
+
+        // Example of how to prepare data for Google Sheets:
+        function prepareDataForGoogleSheets(formData) {
+          return {
+            fullName: formData.get("fullName"),
+            email: formData.get("email"),
+            phone: formData.get("phone"),
+            course: formData.get("course"),
+            registrationDate: new Date().toISOString(),
+          };
+        }
+
+        // Example of how to send data to Google Sheets (via a server endpoint):
+        function sendToGoogleSheets(data) {
+          // In a real application, you would make an AJAX request to your server
+          // which would then use the Google Sheets API to append the data
+
+          /* Example:
+                      fetch('your-server-endpoint', {
+                          method: 'POST',
+                          headers: {
+                              'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify(data),
+                      })
+                      .then(response => response.json())
+                      .then(result => {
+                          console.log('Success:', result);
+                          return true;
+                      })
+                      .catch(error => {
+                          console.error('Error:', error);
+                          return false;
+                      });
+                      */
+
+          // For this demo, we'll just simulate a successful submission
+          console.log("Data that would be sent to Google Sheets:", data);
+          return true;
+        }
+      });
+    </script>
+  </body>
+</html>
