@@ -294,56 +294,71 @@
         });
 
         // Form submission
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
+        form.addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-          // Validate all fields
           let isValid = true;
 
-          if (!validateName(nameInput.value)) {
-            nameError.classList.remove("hidden");
-            nameInput.classList.add("border-red-500");
-            isValid = false;
-          }
+        if (!validateName(nameInput.value)) {
+          nameError.classList.remove("hidden");
+          nameInput.classList.add("border-red-500");
+          isValid = false;
+        }
 
-          if (!validatePhone(phoneInput.value)) {
-            phoneError.classList.remove("hidden");
-            phoneInput.classList.add("border-red-500");
-            isValid = false;
-          }
+        if (!validatePhone(phoneInput.value)) {
+          phoneError.classList.remove("hidden");
+          phoneInput.classList.add("border-red-500");
+          isValid = false;
+        }
 
-          if (!validateEmail(emailInput.value)) {
-            emailError.classList.remove("hidden");
-            emailInput.classList.add("border-red-500");
-            isValid = false;
-          }
+        if (!validateEmail(emailInput.value)) {
+          emailError.classList.remove("hidden");
+          emailInput.classList.add("border-red-500");
+          isValid = false;
+        }
 
-          if (!validateMessage(messageInput.value)) {
-            messageError.classList.remove("hidden");
-            messageInput.classList.add("border-red-500");
-            isValid = false;
-          }
+        if (!validateMessage(messageInput.value)) {
+          messageError.classList.remove("hidden");
+          messageInput.classList.add("border-red-500");
+          isValid = false;
+        }
 
-          if (isValid) {
-            // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.innerHTML =
-              '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Submitting...';
+        if (isValid) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML =
+            '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Submitting...';
 
-            // Simulate API call to Google Sheets
-            setTimeout(function () {
-              // Hide form and show success message
+          // Prepare form data
+          const formData = new FormData(form);
+
+          // Add a sheet name to the form data (change "Enquiries" to your sheet/tab name)
+          formData.append("sheetName", "Enquiries");
+
+          // Your Google Apps Script Web App URL
+          const scriptURL = "https://script.google.com/macros/s/AKfycbwFINU5aqcmJ5pnoedw7Q9PyegKKeCZEDhx1nPo2Mq4m3Zo8IPN1NRzZAZpcQMfQI75/exec";
+
+          try {
+            const response = await fetch(scriptURL, {
+              method: "POST",
+              body: formData,
+            });
+
+            if (response.ok) {
               form.classList.add("hidden");
               successMessage.classList.remove("hidden");
-
-              // Reset form
               form.reset();
-              submitBtn.disabled = false;
-              submitBtn.innerHTML =
-                '<span>Submit Feedback</span><i class="ri-send-plane-line ml-2"></i>';
-            }, 1500);
+            } else {
+              alert("Submission failed. Please try again.");
+            }
+          } catch (error) {
+            alert("Network error. Please try again.");
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML =
+              '<span>Submit Feedback and or Enquiry</span><i class="ri-send-plane-line ml-2"></i>';
           }
-        });
+        }
+      });
 
         // Send another message button
         sendAnotherBtn.addEventListener("click", function () {
@@ -351,44 +366,7 @@
           form.classList.remove("hidden");
         });
       });
-    </script>
-
-    <script id="googleSheetsIntegration">
-      document.addEventListener("DOMContentLoaded", function () {
-        // This script would handle the actual Google Sheets integration
-        // For demonstration purposes, we're simulating the API call
-        // In a real implementation, you would:
-        // 1. Set up a Google Apps Script web app as an API endpoint
-        // 2. Use fetch() to send form data to the endpoint
-        // 3. Handle the response and show appropriate feedback
-        // Example of how the actual implementation might look:
-        /*
-                  async function submitToGoogleSheet(formData) {
-                      const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL';
-
-                      try {
-                          const response = await fetch(scriptURL, {
-                              method: 'POST',
-                              body: formData
-                          });
-
-                          if (response.ok) {
-                              return { success: true };
-                          } else {
-                              return {
-                                  success: false,
-                                  error: 'Server error, please try again later.'
-                              };
-                          }
-                      } catch (error) {
-                          return {
-                              success: false,
-                              error: 'Network error, please check your connection.'
-                          };
-                      }
-                  }
-                  */
-      });
-    </script>
+    
+        </script>
   </body>
 </html>
